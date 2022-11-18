@@ -19,6 +19,14 @@ class WordList() {
 
     }
 
+    fun addWordToList(word: Word){
+        wordList.add(word)
+    }
+
+    fun clearWordList(){
+        wordList.clear()
+    }
+
 //    fun getNewWord() : Word {
 //        val rnd = (0 until wordList.size).random()
 //        return wordList[rnd]

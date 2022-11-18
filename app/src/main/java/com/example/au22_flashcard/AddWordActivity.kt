@@ -9,6 +9,7 @@ import android.widget.Toast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class AddWordActivity : AppCompatActivity(), CoroutineScope {
@@ -49,14 +50,18 @@ class AddWordActivity : AppCompatActivity(), CoroutineScope {
 
     fun addNewWord(){
         if(addNewWordSwedishTextView.text.isEmpty() || addNewWordEnglishTextView.text.isEmpty()){
-            Toast.makeText(this, "One of the necessary fields are empty", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Atleast one of the necessary fields are empty", Toast.LENGTH_SHORT).show()
         } else {
             var newSwedishWord =  addNewWordSwedishTextView.text.toString()
             var newEnglishWord = addNewWordEnglishTextView.text.toString()
 
-            var addWordToDatabase = Word(newSwedishWord,newEnglishWord)
+            var addWordToDatabase = Word(newEnglishWord, newSwedishWord)
 
-            db.wordDao.insert(addWordToDatabase)
+
+            launch(Dispatchers.IO){
+                db.wordDao.insert(addWordToDatabase)
+            }
+
 
             addNewWordSwedishTextView.text.clear()
             addNewWordEnglishTextView.text.clear()

@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">AU22_flashcard</string>
     <string name="add_new_word">Add new word</string>
-    <string name="new_word_english">New word (english)</string>
-    <string name="new_word_swedish">New word (swedish)</string>
+    <string name="new_word_english">New word (english):</string>
+    <string name="new_word_swedish">New word (swedish):</string>
     <string name="add_word">Add word</string>
     <string name="go_back">Go back</string>
 </resources>

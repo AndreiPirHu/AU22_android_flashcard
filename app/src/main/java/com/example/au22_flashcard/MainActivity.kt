@@ -1,14 +1,14 @@
 package com.example.au22_flashcard
 
+import android.content.ClipData.Item
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.widget.Button
 import android.widget.TextView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
@@ -47,8 +47,31 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+            wordList.clearWordList()
+
+            launch {
+                val list = getAllWords()
+                val databaseWordList = list.await()
+
+                for(word in databaseWordList){
+                    Log.d("!!!","item: $word")
+                    wordList.addWordToList(word)
+                }
+            }
 
     }
+
+
+    fun getAllWords(): Deferred<List<Word>> =
+        async(Dispatchers.IO){
+            db.wordDao.getAll()
+        }
+
+
 
     fun revealTranslation() {
         wordView.text = currentWord?.english
@@ -61,6 +84,11 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         wordView.text = currentWord?.swedish
     }
 
+    fun loadAllItems() : Deferred<List<Word>> =
+        async(Dispatchers.IO){
+            db.wordDao.getAll()
+        }
+
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
 
@@ -72,9 +100,21 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     }
 
 
+    fun saveWord(word: Word){
+        launch(Dispatchers.IO){
+            db.wordDao.insert(word)
+        }
 
 
 
+
+    }
+
+    fun removeWord(word: Word){
+        launch(Dispatchers.IO){
+            db.wordDao.delete(word)
+        }
+    }
 
 
 

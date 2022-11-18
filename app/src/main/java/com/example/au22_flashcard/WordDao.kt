@@ -19,7 +19,5 @@ interface WordDao {
     @Query("SELECT * FROM word_table")
     fun getAll(): List<Word>
 
-//    @Query("SELECT * FROM word_table WHERE english")
-//    fun findByLanguage(name: String): List<Word>
 
 }

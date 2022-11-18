@@ -37,6 +37,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="45dp"
         android:text="@string/new_word_english"
+        android:textColor="#000000"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newWordSwedishView" />
 
@@ -47,6 +49,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="35dp"
         android:text="@string/new_word_swedish"
+        android:textColor="#000000"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleView" />
 
