@@ -65,6 +65,7 @@ class AddWordActivity : AppCompatActivity(), CoroutineScope {
 
             addNewWordSwedishTextView.text.clear()
             addNewWordEnglishTextView.text.clear()
+            Toast.makeText(this,"Word successfully added", Toast.LENGTH_SHORT).show()
         }
 
     }

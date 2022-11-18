@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -33,7 +35,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         wordView = findViewById(R.id.wordTextView)
         addNewWordButton = findViewById(R.id.button3)
 
-        showNewWord()
 
         wordView.setOnClickListener {
             revealTranslation()
@@ -60,8 +61,11 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                 for(word in databaseWordList){
                     Log.d("!!!","item: $word")
                     wordList.addWordToList(word)
+
                 }
+                showNewWord()
             }
+
 
     }
 
@@ -83,11 +87,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         currentWord = wordList.getNewWord()
         wordView.text = currentWord?.swedish
     }
-
-    fun loadAllItems() : Deferred<List<Word>> =
-        async(Dispatchers.IO){
-            db.wordDao.getAll()
-        }
 
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
